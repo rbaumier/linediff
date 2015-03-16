@@ -7,17 +7,17 @@ let diff = (function () {
     let oldlength = oldlines.length;
 
     return oldlines
+
       // diff between old and new lines
-      .reduce((m, l, i) => {
-        if (l !== newlines[i])  {
-          m.push(_line(i + 1, newlines[i], l));
-        }
+      .reduce((m, line, i) => {
+        if (line !== newlines[i]) m.push(_line(i + 1, newlines[i], line));
         return m;
       }, [])
-      // add new lines to the end
+
+      // add new lines to the end if longer
       .concat(newlines
         .slice(oldlength)
-        .map((l, i) => _line(i + oldlength + 1, l))
+        .map((line, i) => _line(i + oldlength + 1, line))
       );
   }
 
